@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'theme/theme.dart';
 
 void main() {
@@ -33,15 +34,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var imgLink = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8MHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60';
 
+  final Uri _url = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           PhotoView(
-            imageProvider: NetworkImage(
-              imgLink
-            ),
+            imageProvider: NetworkImage(imgLink),
             minScale: PhotoViewComputedScale.contained * 1,
             maxScale: PhotoViewComputedScale.covered * 1,
           ),
@@ -88,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Icon(Icons.info_outline),
           ),
           FloatingActionButton.small(
-            onPressed: () {},
+            onPressed: _launchUrl,
             backgroundColor: const Color.fromRGBO(0, 120, 212, 10),
             child: Image.asset(
               'assets/icons/linkedin.png',
