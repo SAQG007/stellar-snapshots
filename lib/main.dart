@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:photo_view/photo_view.dart';
 import 'theme/theme.dart';
 
 void main() {
@@ -30,23 +31,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  var imgLink = 'https://apod.nasa.gov/apod/image/2308/sombrero_spitzer_3000.jpg';
+  var imgLink = 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlfGVufDB8MHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                      imgLink,
-                    ),
-                  fit: BoxFit.cover,
-                ),
+          PhotoView(
+            imageProvider: NetworkImage(
+              imgLink
             ),
+            minScale: PhotoViewComputedScale.contained * 1,
+            maxScale: PhotoViewComputedScale.covered * 1,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10.0, 25.0, 10.0, 10.0),
