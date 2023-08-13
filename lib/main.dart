@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'theme/theme.dart';
 
 void main() {
@@ -73,6 +74,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: ExpandableFab(
+        distance: 60,
+        type: ExpandableFabType.up,
+        children: [
+          FloatingActionButton.small(
+            // shape: const CircleBorder(),
+            heroTag: null,
+            child: const Icon(Icons.linked_camera_outlined),
+            onPressed: () {},
+          ),
+          FloatingActionButton.small(
+            heroTag: null,
+            child: const Icon(Icons.info_outline),
+            onPressed: () {},
           ),
         ],
       ),
