@@ -30,18 +30,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  var imgLink = 'https://apod.nasa.gov/apod/image/2308/sombrero_spitzer_3000.jpg';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                      'https://images.unsplash.com/photo-1547665979-bb809517610d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80'
+                      imgLink,
                     ),
-                  fit: BoxFit.cover
+                  fit: BoxFit.cover,
                 ),
             ),
           ),
@@ -82,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
         distance: 60,
-        type: ExpandableFabType.up,
         children: [
           FloatingActionButton.small(
             onPressed: () {},
@@ -90,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           FloatingActionButton.small(
             onPressed: () {},
-            backgroundColor: Color.fromRGBO(0, 120, 212, 10),
+            backgroundColor: const Color.fromRGBO(0, 120, 212, 10),
             child: Image.asset(
               'assets/icons/linkedin.png',
             ),
