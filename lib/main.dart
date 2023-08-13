@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'theme/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,10 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'NASA APOD',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-        useMaterial3: true,
-      ),
+      theme: myTheme,
       home: const MyHomePage(title: 'NASA APOD'),
       debugShowCheckedModeBanner: false,
     );
@@ -31,23 +29,58 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      'https://images.unsplash.com/photo-1547665979-bb809517610d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80'),
+                  fit: BoxFit.cover),
             ),
-            Text(
-              '5',
-              style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10.0, 25.0, 10.0, 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "NASA APOD",
+                  style: TextStyle(
+                    fontSize: 50,
+                  ),
+                ),
+                const Divider(),
+                Table(
+                  columnWidths: const <int, TableColumnWidth>{
+                    0: FixedColumnWidth(55),
+                  },
+                  children: const [
+                    TableRow(
+                      children: [
+                        Text(
+                          "Date: ",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                          "2023-13-07",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
