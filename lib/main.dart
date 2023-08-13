@@ -47,31 +47,25 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Pillars of creation",
-                  style: TextStyle(
-                    fontSize: 45,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const Divider(),
                 Table(
                   columnWidths: const <int, TableColumnWidth>{
                     0: FixedColumnWidth(55),
                   },
-                  children: const [
+                  children: [
                     TableRow(
                       children: [
                         Text(
-                          "Date: ",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+                          "Date:",
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
                           "2023-13-07",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                     ),
