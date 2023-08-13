@@ -48,9 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "NASA APOD",
+                  "Pillars of creation",
                   style: TextStyle(
-                    fontSize: 50,
+                    fontSize: 45,
                   ),
                 ),
                 const Divider(),
