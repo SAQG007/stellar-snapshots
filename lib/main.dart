@@ -39,8 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(
-                      'https://images.unsplash.com/photo-1547665979-bb809517610d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80'),
-                  fit: BoxFit.cover),
+                      'https://images.unsplash.com/photo-1547665979-bb809517610d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80'
+                    ),
+                  fit: BoxFit.cover
+                ),
             ),
           ),
           Padding(
@@ -83,15 +85,15 @@ class _MyHomePageState extends State<MyHomePage> {
         type: ExpandableFabType.up,
         children: [
           FloatingActionButton.small(
-            // shape: const CircleBorder(),
-            heroTag: null,
-            child: const Icon(Icons.linked_camera_outlined),
             onPressed: () {},
+            child: const Icon(Icons.info_outline),
           ),
           FloatingActionButton.small(
-            heroTag: null,
-            child: const Icon(Icons.info_outline),
             onPressed: () {},
+            backgroundColor: Color.fromRGBO(0, 120, 212, 10),
+            child: Image.asset(
+              'assets/icons/linkedin.png',
+            ),
           ),
         ],
       ),
