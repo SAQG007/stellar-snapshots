@@ -3,27 +3,30 @@ import 'package:flutter/material.dart';
 ThemeData myTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
+  colorScheme: const ColorScheme.light(
+    primary: Color(0xff0B2447),
+  ),
   textTheme: const TextTheme(
     bodySmall: TextStyle(
-      color: Colors.white,
+      color: Colors.white60,
       fontSize: 14,
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
     ),
     bodyMedium: TextStyle(
-      color: Colors.white,
+      color: Colors.white60,
       fontSize: 15,
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
     ),
     bodyLarge: TextStyle(
-      color: Colors.white,
+      color: Colors.white60,
       fontSize: 25,
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
     ),
     labelMedium: TextStyle(
-      color: Colors.black,
+      color: Colors.white60,
       fontFamily: 'Quicksand-Regular',
       fontSize: 15,
       fontWeight: FontWeight.w700,
@@ -34,5 +37,30 @@ ThemeData myTheme = ThemeData(
       fontSize: 13,
       fontWeight: FontWeight.w700,
     ),
+  ),
+  dividerTheme: const DividerThemeData(
+    color: Colors.white60,
+  ),
+  dialogTheme: const DialogTheme(
+    backgroundColor: Color(0xff0B2447),
+    titleTextStyle: TextStyle(
+      color: Colors.white54,
+      fontFamily: 'Quicksand-Regular',
+      fontSize: 25,
+      fontWeight: FontWeight.w700
+    ),
+    contentTextStyle: TextStyle(
+      color: Colors.white60,
+      fontFamily: 'Quicksand-Regular',
+      fontSize: 15,
+    ),
+  ),
+  textButtonTheme: const TextButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: MaterialStatePropertyAll(Colors.white54),
+    ),
+  ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    foregroundColor: Colors.white54,
   ),
 );
