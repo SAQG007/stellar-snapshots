@@ -45,49 +45,54 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          PhotoView(
-            backgroundDecoration: const BoxDecoration(
-              color: Colors.black,
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.black,
+        ),
+        child: Stack(
+          children: [
+            PhotoView(
+              backgroundDecoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              imageProvider: NetworkImage(imgLink),
+              minScale: PhotoViewComputedScale.contained * 1,
+              maxScale: PhotoViewComputedScale.covered * 1,
             ),
-            imageProvider: NetworkImage(imgLink),
-            minScale: PhotoViewComputedScale.contained * 1,
-            maxScale: PhotoViewComputedScale.covered * 1,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 25.0, 10.0, 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Pillars of creation",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const Divider(),
-                Table(
-                  columnWidths: const <int, TableColumnWidth>{
-                    0: FixedColumnWidth(55),
-                  },
-                  children: [
-                    TableRow(
-                      children: [
-                        Text(
-                          "Date:",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        Text(
-                          "2023-13-07",
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 25.0, 10.0, 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Pillars of creation",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const Divider(),
+                  Table(
+                    columnWidths: const <int, TableColumnWidth>{
+                      0: FixedColumnWidth(55),
+                    },
+                    children: [
+                      TableRow(
+                        children: [
+                          Text(
+                            "Date:",
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          Text(
+                            "2023-13-07",
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
