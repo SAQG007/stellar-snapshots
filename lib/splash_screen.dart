@@ -21,18 +21,10 @@ class _SplashScreenState extends State<SplashScreen> {
   String _imgDate = "";
   String _imgDescription = "";
 
-  bool _dataLoaded = false;
-
   @override
   void initState() {
     super.initState();
-    // _getApodData();
-
     _getApodData();
-
-    // Timer(const Duration(seconds: 2), () {
-    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home(imgLink: _imgLink, imgTitle: _imgTitle, imgDate: _imgDate, imgDescription: _imgDescription)));
-    // });
   }
 
   Future<void> _getApodData() async {
@@ -66,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("Splash Screen")
+        child: Text("Splash Screen", style: TextStyle(color: Colors.black),)
       ),
     );
   }

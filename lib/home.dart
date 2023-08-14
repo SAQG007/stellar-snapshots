@@ -25,12 +25,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  @override
-  void initState() {
-    super.initState();
-    print("Image URL: ${widget.imgLink}");
-  }
-
   // my mail address
   final String _mailAddress = "syedabdulqadirgillani807@gmail.com";
 
