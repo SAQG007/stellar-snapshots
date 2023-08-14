@@ -22,5 +22,17 @@ ThemeData myTheme = ThemeData(
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
     ),
+    labelMedium: TextStyle(
+      color: Colors.black,
+      fontFamily: 'Quicksand-Regular',
+      fontSize: 15,
+      fontWeight: FontWeight.w700,
+    ),
+    labelSmall: TextStyle(
+      color: Colors.black,
+      fontFamily: 'Quicksand-Regular',
+      fontSize: 13,
+      fontWeight: FontWeight.w700,
+    ),
   ),
 );

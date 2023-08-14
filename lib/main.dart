@@ -109,9 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       child: Text(
                         _imgDescription,
-                        overflow: _showFullDescription
-                            ? TextOverflow.clip
-                            : TextOverflow.ellipsis,
+                        overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
                         maxLines: !_showFullDescription ? 3 : null,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
@@ -128,7 +126,46 @@ class _MyHomePageState extends State<MyHomePage> {
         distance: 60,
         children: [
           FloatingActionButton.small(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('About'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Explore the cosmos through captivating imagery with our app powered by NASA's APOD API. Discover a daily dose of awe-inspiring astronomy pictures and expand your horizons.",
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Text(
+                          "Send your feedback at:-",
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: Text(
+                          "syedabdulqadirgillani807@gmail.com",
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            },
             child: const Icon(Icons.info_outline),
           ),
           FloatingActionButton.small(
