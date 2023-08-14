@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 import 'theme/theme.dart';
 
 void main() {
@@ -35,15 +38,46 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  // my mail address
   final String _mailAddress = "syedabdulqadirgillani807@gmail.com";
-  final String _imgLink = 'https://apod.nasa.gov/apod/image/2308/sombrero_spitzer_3000.jpg';
-  final String _imgTitle = "Pillars of creation";
-  final String _imgDate = "2023-13-07";
-  final String _imgDescription = "The Ring Nebula (M57), is more complicated than it appears through a small telescope.  The easily visible central ring is about one light-year across, but this remarkable exposure by the James Webb Space Telescope explores this popular nebula with a deep exposure in infrared light. Strings of gas, like eyelashes around a cosmic eye, become evident around the Ring in this digitally enhanced featured image in assigned colors. These long filaments may be caused by shadowing of knots of dense gas in the ring from energetic light emitted within. The Ring Nebula is an elongated planetary nebula, a type of gas cloud created when a Sun-like star evolves to throw off its outer atmosphere to become a white dwarf star.  The central oval in the Ring Nebula lies about 2,500 light-years away toward the musical constellation Lyra.";
+
+  // my LinkedIn url
+  final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
+
+  // api response data storage variables
+  String _imgLink = "https://images.unsplash.com/photo-1692026801134-dc74fa1d9aa5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDF8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
+  String _imgTitle = "";
+  String _imgDate = "";
+  String _imgDescription = "";
+
+  // api url
+  final String _apiUrl = "https://api.nasa.gov/planetary/apod?api_key=uQhkylW0hJgv4asx9U47a4IlQlbpbxiFspvb4nPB";
 
   var _showFullDescription = false;
 
-  final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
+  @override
+  void initState() {
+    _getApodData();
+    super.initState();
+  }
+
+  Future<void> _getApodData() async {
+    final response = await http.get(Uri.parse(_apiUrl));
+
+    if(response.statusCode == 200) {
+      print("Response Data: ${response.body}");
+      final _responseData = json.decode(response.body);
+
+      setState(() {
+        _imgTitle = _responseData['title'];
+        _imgDate = _responseData['date'];
+        _imgDescription = _responseData['explanation'];
+      });
+    }
+    else {
+      print("Response Error: ${response.statusCode}");
+    }
+  }
 
   Future<void> _openLinkedProfile() async {
     if (!await launchUrl(_linkedInUrl, mode: LaunchMode.externalApplication)) {
@@ -154,9 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       child: Text(
                         _imgDescription,
-                        overflow: _showFullDescription
-                            ? TextOverflow.clip
-                            : TextOverflow.ellipsis,
+                        overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
                         maxLines: !_showFullDescription ? 3 : null,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
