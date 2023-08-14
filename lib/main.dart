@@ -53,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
   // api url
   final String _apiUrl = "https://api.nasa.gov/planetary/apod?api_key=uQhkylW0hJgv4asx9U47a4IlQlbpbxiFspvb4nPB";
 
-  var _showFullDescription = false;
+  bool _showFullDescription = false;
+  bool _showText = true;
 
   @override
   void initState() {
@@ -163,37 +164,40 @@ class _MyHomePageState extends State<MyHomePage> {
               minScale: PhotoViewComputedScale.contained * 1,
               maxScale: PhotoViewComputedScale.covered * 1,
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 35.0, 10.0, 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _imgTitle,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const Divider(),
-                  Text(
-                    "Date: $_imgDate",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _showFullDescription = !_showFullDescription;
-                        });
-                      },
-                      child: Text(
-                        _imgDescription,
-                        overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
-                        maxLines: !_showFullDescription ? 3 : null,
-                        style: Theme.of(context).textTheme.bodySmall,
+            Visibility(
+              visible: _showText,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 35.0, 10.0, 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _imgTitle,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    const Divider(),
+                    Text(
+                      "Date: $_imgDate",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _showFullDescription = !_showFullDescription;
+                          });
+                        },
+                        child: Text(
+                          _imgDescription,
+                          overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
+                          maxLines: !_showFullDescription ? 3 : null,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -201,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
-        distance: 60,
+        distance: 90,
         children: [
           FloatingActionButton.small(
             onPressed: () {
@@ -213,15 +217,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Explore the cosmos through captivating imagery with our app powered by NASA's APOD API. Discover a daily dose of awe-inspiring astronomy pictures and expand your horizons.",
-                        style: Theme.of(context).textTheme.labelMedium,
+                      const Text(
+                        "Explore the cosmos through captivating imagery with this app powered by NASA's APOD API. Discover a daily dose of awe-inspiring astronomy pictures and expand your horizons.",
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 16.0),
                         child: Text(
                           "Send your feedback at:-",
-                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ),
                       GestureDetector(
@@ -250,6 +252,14 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
             child: const Icon(Icons.info_outline),
+          ),
+          FloatingActionButton.small(
+            onPressed: () {
+              setState(() {
+                _showText = !_showText;
+              });
+            },
+            child: Icon(_showText ? Icons.comments_disabled_outlined : Icons.comment_outlined),
           ),
           FloatingActionButton.small(
             onPressed: _openLinkedProfile,
