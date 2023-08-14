@@ -32,14 +32,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var imgLink = 'https://apod.nasa.gov/apod/image/2308/sombrero_spitzer_3000.jpg';
+  var imgLink =
+      'https://apod.nasa.gov/apod/image/2308/sombrero_spitzer_3000.jpg';
   static const _imgTitle = "Pillars of creation";
   static const _imgDate = "2023-13-07";
-  static const _imgDescription = "The Ring Nebula (M57), is more complicated than it appears through a small telescope.  The easily visible central ring is about one light-year across, but this remarkable exposure by the James Webb Space Telescope explores this popular nebula with a deep exposure in infrared light. Strings of gas, like eyelashes around a cosmic eye, become evident around the Ring in this digitally enhanced featured image in assigned colors. These long filaments may be caused by shadowing of knots of dense gas in the ring from energetic light emitted within. The Ring Nebula is an elongated planetary nebula, a type of gas cloud created when a Sun-like star evolves to throw off its outer atmosphere to become a white dwarf star.  The central oval in the Ring Nebula lies about 2,500 light-years away toward the musical constellation Lyra.";
+  static const _imgDescription =
+      "The Ring Nebula (M57), is more complicated than it appears through a small telescope.  The easily visible central ring is about one light-year across, but this remarkable exposure by the James Webb Space Telescope explores this popular nebula with a deep exposure in infrared light. Strings of gas, like eyelashes around a cosmic eye, become evident around the Ring in this digitally enhanced featured image in assigned colors. These long filaments may be caused by shadowing of knots of dense gas in the ring from energetic light emitted within. The Ring Nebula is an elongated planetary nebula, a type of gas cloud created when a Sun-like star evolves to throw off its outer atmosphere to become a white dwarf star.  The central oval in the Ring Nebula lies about 2,500 light-years away toward the musical constellation Lyra.";
 
   var _showFullDescription = false;
 
-  final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
+  final Uri _linkedInUrl =
+      Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
 
   Future<void> _openLinkedProfile() async {
     if (!await launchUrl(_linkedInUrl, mode: LaunchMode.externalApplication)) {
@@ -71,27 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   Text(
                     _imgTitle,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const Divider(),
-                  Table(
-                    columnWidths: const <int, TableColumnWidth>{
-                      0: FixedColumnWidth(55),
-                    },
-                    children: [
-                      TableRow(
-                        children: [
-                          Text(
-                            "Date:",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          Text(
-                            _imgDate,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
-                    ],
+                  Text(
+                    "Date: $_imgDate",
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
@@ -103,11 +91,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       child: Text(
                         _imgDescription,
-                        overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
+                        overflow: _showFullDescription
+                            ? TextOverflow.clip
+                            : TextOverflow.ellipsis,
                         maxLines: !_showFullDescription ? 3 : null,
-                        style: const TextStyle(
-                          fontSize: 14,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                   ),
