@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
 
   // api response data storage variables
-  String _imgLink = "https://images.unsplash.com/photo-1692026801134-dc74fa1d9aa5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDF8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
+  String _imgLink = "https://apod.nasa.gov/apod/image/2308/M57_JwstKong_4532.jpg";
   String _imgTitle = "";
   String _imgDate = "";
   String _imgDescription = "";
@@ -164,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
               maxScale: PhotoViewComputedScale.covered * 1,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 25.0, 10.0, 10.0),
+              padding: const EdgeInsets.fromLTRB(10.0, 35.0, 10.0, 10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -178,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
+                    padding: const EdgeInsets.only(top: 10.0),
                     child: GestureDetector(
                       onTap: () {
                         setState(() {

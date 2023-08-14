@@ -12,13 +12,13 @@ ThemeData myTheme = ThemeData(
     ),
     bodyMedium: TextStyle(
       color: Colors.white,
-      fontSize: 20,
+      fontSize: 15,
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
     ),
     bodyLarge: TextStyle(
       color: Colors.white,
-      fontSize: 45,
+      fontSize: 25,
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
     ),
