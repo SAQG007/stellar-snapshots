@@ -33,6 +33,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var imgLink = 'https://apod.nasa.gov/apod/image/2308/sombrero_spitzer_3000.jpg';
+  static const _imgTitle = "Pillars of creation";
+  static const _imgDate = "2023-13-07";
+  static const _imgDescription = "The Ring Nebula (M57), is more complicated than it appears through a small telescope.  The easily visible central ring is about one light-year across, but this remarkable exposure by the James Webb Space Telescope explores this popular nebula with a deep exposure in infrared light. Strings of gas, like eyelashes around a cosmic eye, become evident around the Ring in this digitally enhanced featured image in assigned colors. These long filaments may be caused by shadowing of knots of dense gas in the ring from energetic light emitted within. The Ring Nebula is an elongated planetary nebula, a type of gas cloud created when a Sun-like star evolves to throw off its outer atmosphere to become a white dwarf star.  The central oval in the Ring Nebula lies about 2,500 light-years away toward the musical constellation Lyra.";
+
+  var _showFullDescription = false;
 
   final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
 
@@ -65,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Pillars of creation",
+                    _imgTitle,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const Divider(),
@@ -81,12 +86,30 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           Text(
-                            "2023-13-07",
+                            _imgDate,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
                       ),
                     ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _showFullDescription = !_showFullDescription;
+                        });
+                      },
+                      child: Text(
+                        _imgDescription,
+                        overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
+                        maxLines: !_showFullDescription ? 3 : null,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
