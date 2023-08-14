@@ -65,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
     final response = await http.get(Uri.parse(_apiUrl));
 
     if(response.statusCode == 200) {
-      print("Response Data: ${response.body}");
       final _responseData = json.decode(response.body);
 
       setState(() {
