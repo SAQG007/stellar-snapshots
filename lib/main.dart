@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:photo_view/photo_view.dart';
@@ -32,19 +34,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var imgLink = 'https://apod.nasa.gov/apod/image/2308/sombrero_spitzer_3000.jpg';
-  static const _imgTitle = "Pillars of creation";
-  static const _imgDate = "2023-13-07";
-  static const _imgDescription = "The Ring Nebula (M57), is more complicated than it appears through a small telescope.  The easily visible central ring is about one light-year across, but this remarkable exposure by the James Webb Space Telescope explores this popular nebula with a deep exposure in infrared light. Strings of gas, like eyelashes around a cosmic eye, become evident around the Ring in this digitally enhanced featured image in assigned colors. These long filaments may be caused by shadowing of knots of dense gas in the ring from energetic light emitted within. The Ring Nebula is an elongated planetary nebula, a type of gas cloud created when a Sun-like star evolves to throw off its outer atmosphere to become a white dwarf star.  The central oval in the Ring Nebula lies about 2,500 light-years away toward the musical constellation Lyra.";
+
+  final String _mailAddress = "syedabdulqadirgillani807@gmail.com";
+  final String _imgLink = 'https://apod.nasa.gov/apod/image/2308/sombrero_spitzer_3000.jpg';
+  final String _imgTitle = "Pillars of creation";
+  final String _imgDate = "2023-13-07";
+  final String _imgDescription = "The Ring Nebula (M57), is more complicated than it appears through a small telescope.  The easily visible central ring is about one light-year across, but this remarkable exposure by the James Webb Space Telescope explores this popular nebula with a deep exposure in infrared light. Strings of gas, like eyelashes around a cosmic eye, become evident around the Ring in this digitally enhanced featured image in assigned colors. These long filaments may be caused by shadowing of knots of dense gas in the ring from energetic light emitted within. The Ring Nebula is an elongated planetary nebula, a type of gas cloud created when a Sun-like star evolves to throw off its outer atmosphere to become a white dwarf star.  The central oval in the Ring Nebula lies about 2,500 light-years away toward the musical constellation Lyra.";
 
   var _showFullDescription = false;
 
-  final Uri _linkedInUrl =
-      Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
+  final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
 
   Future<void> _openLinkedProfile() async {
     if (!await launchUrl(_linkedInUrl, mode: LaunchMode.externalApplication)) {
-      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -68,6 +70,49 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Future<void> _openMail() async {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: _mailAddress,
+      query: encodeQueryParameters(<String, String>{
+        'subject': 'Stellar Snapshots Feedback',
+      }),
+    );
+
+    if(await canLaunchUrl(emailLaunchUri)) {
+      launchUrl(emailLaunchUri);
+    }
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+            'Error while opening mail.',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      ); 
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundDecoration: const BoxDecoration(
                 color: Colors.black,
               ),
-              imageProvider: NetworkImage(imgLink),
+              imageProvider: NetworkImage(_imgLink),
               minScale: PhotoViewComputedScale.contained * 1,
               maxScale: PhotoViewComputedScale.covered * 1,
             ),
@@ -109,7 +154,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                       child: Text(
                         _imgDescription,
-                        overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
+                        overflow: _showFullDescription
+                            ? TextOverflow.clip
+                            : TextOverflow.ellipsis,
                         maxLines: !_showFullDescription ? 3 : null,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
@@ -146,11 +193,16 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          "syedabdulqadirgillani807@gmail.com",
-                          style: Theme.of(context).textTheme.labelSmall,
+                      GestureDetector(
+                        onTap: () {
+                          _openMail();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            _mailAddress,
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
                         ),
                       ),
                     ],

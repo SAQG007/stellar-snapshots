@@ -29,7 +29,7 @@ ThemeData myTheme = ThemeData(
       fontWeight: FontWeight.w700,
     ),
     labelSmall: TextStyle(
-      color: Colors.black,
+      color: Colors.blue,
       fontFamily: 'Quicksand-Regular',
       fontSize: 13,
       fontWeight: FontWeight.w700,
