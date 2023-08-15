@@ -8,19 +8,19 @@ ThemeData myTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     bodySmall: TextStyle(
-      color: Colors.white60,
+      color: Colors.white70,
       fontSize: 14,
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
     ),
     bodyMedium: TextStyle(
-      color: Colors.white60,
+      color: Colors.white70,
       fontSize: 15,
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
     ),
     bodyLarge: TextStyle(
-      color: Colors.white60,
+      color: Colors.white70,
       fontSize: 25,
       fontFamily: 'Quicksand-Regular',
       fontWeight: FontWeight.w900,
@@ -44,13 +44,13 @@ ThemeData myTheme = ThemeData(
   dialogTheme: const DialogTheme(
     backgroundColor: Color(0xff0B2447),
     titleTextStyle: TextStyle(
-      color: Colors.white54,
+      color: Colors.white70,
       fontFamily: 'Quicksand-Regular',
       fontSize: 25,
       fontWeight: FontWeight.w700
     ),
     contentTextStyle: TextStyle(
-      color: Colors.white60,
+      color: Colors.white70,
       fontFamily: 'Quicksand-Regular',
       fontSize: 15,
     ),
@@ -61,6 +61,6 @@ ThemeData myTheme = ThemeData(
     ),
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    foregroundColor: Colors.white54,
+    foregroundColor: Colors.white70,
   ),
 );
