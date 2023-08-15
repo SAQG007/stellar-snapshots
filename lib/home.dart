@@ -118,6 +118,20 @@ class _HomeState extends State<Home> {
               imageProvider: NetworkImage(widget.imgLink),
               minScale: PhotoViewComputedScale.contained * 1,
               maxScale: PhotoViewComputedScale.covered * 1,
+              loadingBuilder: (context, event) {
+                if (event == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                else {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
+                    ),
+                  );
+                }
+              },
             ),
             Visibility(
               visible: _showText,

@@ -63,4 +63,7 @@ ThemeData myTheme = ThemeData(
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     foregroundColor: Colors.white70,
   ),
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+    color: Colors.white70,
+  ),
 );
