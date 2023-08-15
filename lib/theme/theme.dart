@@ -26,15 +26,15 @@ ThemeData myTheme = ThemeData(
       fontWeight: FontWeight.w900,
     ),
     labelMedium: TextStyle(
-      color: Colors.white60,
-      fontFamily: 'Quicksand-Regular',
-      fontSize: 15,
-      fontWeight: FontWeight.w700,
-    ),
-    labelSmall: TextStyle(
       color: Colors.blue,
       fontFamily: 'Quicksand-Regular',
       fontSize: 13,
+      fontWeight: FontWeight.w700,
+    ),
+    labelSmall: TextStyle(
+      color: Colors.white70,
+      fontFamily: 'Quicksand-Regular',
+      fontSize: 12,
       fontWeight: FontWeight.w700,
     ),
   ),

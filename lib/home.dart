@@ -125,10 +125,20 @@ class _HomeState extends State<Home> {
                   );
                 }
                 else {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
-                    ),
+                  return Stack(
+                    children: [
+                      Center(
+                        child: Text(
+                          "${(event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1) * 100).toInt()}%",
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ),
+                      Center(
+                        child: CircularProgressIndicator(
+                          value: event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
+                        ),
+                      ),
+                    ],
                   );
                 }
               },
@@ -203,7 +213,7 @@ class _HomeState extends State<Home> {
                           padding: const EdgeInsets.only(top: 5.0),
                           child: Text(
                             _mailAddress,
-                            style: Theme.of(context).textTheme.labelSmall,
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ),
                       ),
