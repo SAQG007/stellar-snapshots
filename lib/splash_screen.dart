@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:nasa_apod/home.dart';
@@ -24,7 +25,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _getApodData();
+    _checkInternetConnection();    
+  }
+
+  Future<void> _checkInternetConnection() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+
+    if(connectivityResult == ConnectivityResult.none) {
+      print("No Internet connection");
+    }
+    else if(connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      _getApodData();
+    }
   }
 
   Future<void> _getApodData() async {
