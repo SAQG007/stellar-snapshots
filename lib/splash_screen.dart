@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -83,12 +84,11 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Center(
-            child: Text(
-              "Splash Screen",
-              style: TextStyle(
-                color: Colors.black
-              ),
+          Center(
+            child: SvgPicture.asset(
+              'assets/logo/logo.svg',
+              width: 80.0,
+              height: 80.0,
             ),
           ),
           Center(
