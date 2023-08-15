@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:nasa_apod/home.dart';
 
@@ -32,7 +35,14 @@ class _SplashScreenState extends State<SplashScreen> {
     final connectivityResult = await (Connectivity().checkConnectivity());
 
     if(connectivityResult == ConnectivityResult.none) {
-      print("No Internet connection");
+        Fluttertoast.showToast(
+          msg: "No internet connection",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0,
+          backgroundColor: Colors.grey,
+      );
     }
     else if(connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
       _getApodData();
