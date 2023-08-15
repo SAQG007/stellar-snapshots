@@ -39,7 +39,7 @@ ThemeData myTheme = ThemeData(
     ),
   ),
   dividerTheme: const DividerThemeData(
-    color: Colors.white60,
+    color: Colors.white70,
   ),
   dialogTheme: const DialogTheme(
     backgroundColor: Color(0xff0B2447),
