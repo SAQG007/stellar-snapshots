@@ -5,6 +5,7 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nasa_apod/home/image_loader.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,6 +34,8 @@ class _HomeState extends State<Home> {
 
   // my LinkedIn url
   final Uri _linkedInUrl = Uri.parse('https://www.linkedin.com/in/syed-abdul-qadir-gillani/');
+  
+  String _appName = "";
 
   bool _showFullDescription = false;
   bool _showText = true;
@@ -40,6 +43,17 @@ class _HomeState extends State<Home> {
   
   int _downloadedImageBytes = 0;
   int _totalBytes = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _getPackageInfo();
+  }
+
+  Future<void> _getPackageInfo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    _appName = packageInfo.appName;
+  }
 
   Future<void> _openLinkedProfile() async {
     if (!await launchUrl(_linkedInUrl, mode: LaunchMode.externalApplication)) {
@@ -64,6 +78,33 @@ class _HomeState extends State<Home> {
         ),
       );
     }
+  }
+
+  void _downloadFile() {
+    _isFileDownloading = true;
+    
+    FileDownloader.downloadFile(
+      url: widget.imgLink,
+      name: "$_appName - ${widget.imgDate}",
+      onProgress: (String? fileName, double progress) {
+        setState(() {
+          _downloadedImageBytes = ((progress / 100) * _totalBytes).toInt();
+        });
+      },
+      onDownloadCompleted: (String? message) {
+        Fluttertoast.showToast(
+          msg: "Download Complete",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0,
+          backgroundColor: Colors.grey,
+        );
+        setState(() {
+          _isFileDownloading = false;
+        });
+      },
+    );
   }
 
   Future<void> _openMail() async {
@@ -231,30 +272,7 @@ class _HomeState extends State<Home> {
           ),
           FloatingActionButton.small(
             onPressed: () {
-              _isFileDownloading = true;
-
-              FileDownloader.downloadFile(
-                url: widget.imgLink,
-                name: "Stellar Snapshots - ${widget.imgDate}",
-                onProgress: (String? fileName, double progress) {
-                  setState(() {
-                    _downloadedImageBytes = ((progress / 100) * _totalBytes).toInt();
-                  });
-                },
-                onDownloadCompleted: (String? message) {
-                  Fluttertoast.showToast(
-                    msg: "Download Complete",
-                    toastLength: Toast.LENGTH_LONG,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    fontSize: 16.0,
-                    backgroundColor: Colors.grey,
-                  );
-                  setState(() {
-                    _isFileDownloading = false;
-                  });
-                },
-              );
+              _downloadFile();
             },
             child: !_isFileDownloading ?
               const Icon(Icons.download_outlined) :
