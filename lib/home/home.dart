@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nasa_apod/home/image_loader.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,6 +36,9 @@ class _HomeState extends State<Home> {
 
   bool _showFullDescription = false;
   bool _showText = true;
+  bool _isFileDownloading = false;
+  
+  double _downloadProgressValue = 0;
 
   Future<void> _openLinkedProfile() async {
     if (!await launchUrl(_linkedInUrl, mode: LaunchMode.externalApplication)) {
@@ -166,7 +171,7 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
-        distance: 90,
+        distance: 110,
         children: [
           FloatingActionButton.small(
             onPressed: () {
@@ -221,6 +226,42 @@ class _HomeState extends State<Home> {
               });
             },
             child: Icon(_showText ? Icons.comments_disabled_outlined : Icons.comment_outlined),
+          ),
+          FloatingActionButton.small(
+            onPressed: () {
+              _isFileDownloading = true;
+
+              FileDownloader.downloadFile(
+                url: widget.imgLink,
+                name: "Stellar Snapshots - ${widget.imgDate}",
+                onProgress: (String? fileName, double progress) {
+                  setState(() {
+                    _downloadProgressValue = (progress / 100);
+                  });
+                },
+                onDownloadCompleted: (String? message) {
+                  Fluttertoast.showToast(
+                    msg: "Download Complete",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    fontSize: 16.0,
+                    backgroundColor: Colors.grey,
+                  );
+                  setState(() {
+                    _isFileDownloading = false;
+                  });
+                },
+              );
+            },
+            child: !_isFileDownloading ?
+              const Icon(Icons.download_outlined) :
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircularProgressIndicator(
+                  value: _downloadProgressValue > 0 ? _downloadProgressValue : null,
+                ),
+              ),
           ),
           FloatingActionButton.small(
             onPressed: _openLinkedProfile,
