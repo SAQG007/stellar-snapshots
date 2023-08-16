@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:nasa_apod/home/image_loader.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -118,20 +119,9 @@ class _HomeState extends State<Home> {
                 );
               }
               else {
-                return Stack(
-                  children: [
-                    Center(
-                      child: Text(
-                        "${(event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1) * 100).toInt()}%",
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                    ),
-                    Center(
-                      child: CircularProgressIndicator(
-                        value: event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
-                      ),
-                    ),
-                  ],
+                return ImageLoader(
+                  cumulativeBytesLoaded: event.cumulativeBytesLoaded,
+                  expectedTotalBytes: event.expectedTotalBytes ?? 1,
                 );
               }
             },
