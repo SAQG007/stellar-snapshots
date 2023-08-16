@@ -105,82 +105,74 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.black,
-        ),
-        child: Stack(
-          children: [
-            PhotoView(
-              backgroundDecoration: const BoxDecoration(
-                color: Colors.black,
-              ),
-              imageProvider: NetworkImage(widget.imgLink),
-              minScale: PhotoViewComputedScale.contained * 1,
-              maxScale: PhotoViewComputedScale.covered * 1,
-              loadingBuilder: (context, event) {
-                if (event == null) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                else {
-                  return Stack(
-                    children: [
-                      Center(
-                        child: Text(
-                          "${(event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1) * 100).toInt()}%",
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                      ),
-                      Center(
-                        child: CircularProgressIndicator(
-                          value: event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
-                        ),
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-            Visibility(
-              visible: _showText,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 35.0, 10.0, 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: [
+          PhotoView(
+            imageProvider: NetworkImage(widget.imgLink),
+            minScale: PhotoViewComputedScale.contained * 1,
+            maxScale: PhotoViewComputedScale.covered * 1,
+            loadingBuilder: (context, event) {
+              if (event == null) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              else {
+                return Stack(
                   children: [
-                    Text(
-                      widget.imgTitle,
-                      style: Theme.of(context).textTheme.bodyLarge,
+                    Center(
+                      child: Text(
+                        "${(event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1) * 100).toInt()}%",
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
                     ),
-                    const Divider(),
-                    Text(
-                      "Date: ${widget.imgDate}",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _showFullDescription = !_showFullDescription;
-                          });
-                        },
-                        child: Text(
-                          widget.imgDescription,
-                          overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
-                          maxLines: !_showFullDescription ? 3 : null,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
+                    Center(
+                      child: CircularProgressIndicator(
+                        value: event.cumulativeBytesLoaded / (event.expectedTotalBytes ?? 1),
                       ),
                     ),
                   ],
-                ),
+                );
+              }
+            },
+          ),
+          Visibility(
+            visible: _showText,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 35.0, 10.0, 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.imgTitle,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  const Divider(),
+                  Text(
+                    "Date: ${widget.imgDate}",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _showFullDescription = !_showFullDescription;
+                        });
+                      },
+                      child: Text(
+                        widget.imgDescription,
+                        overflow: _showFullDescription ? TextOverflow.clip : TextOverflow.ellipsis,
+                        maxLines: !_showFullDescription ? 3 : null,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(

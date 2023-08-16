@@ -95,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: LoadingAnimationWidget.twistingDots(
-                leftDotColor: const Color(0xFF1A1A3F),
+                leftDotColor: Colors.white70,
                 rightDotColor: const Color(0xFFEA3799),
                 size: 25,
               ),
