@@ -38,7 +38,8 @@ class _HomeState extends State<Home> {
   bool _showText = true;
   bool _isFileDownloading = false;
   
-  double _downloadProgressValue = 0;
+  int _downloadedImageBytes = 0;
+  int _totalBytes = 0;
 
   Future<void> _openLinkedProfile() async {
     if (!await launchUrl(_linkedInUrl, mode: LaunchMode.externalApplication)) {
@@ -124,6 +125,7 @@ class _HomeState extends State<Home> {
                 );
               }
               else {
+                _totalBytes = event.expectedTotalBytes ?? 1;
                 return ImageLoader(
                   cumulativeBytesLoaded: event.cumulativeBytesLoaded,
                   expectedTotalBytes: event.expectedTotalBytes ?? 1,
@@ -236,7 +238,7 @@ class _HomeState extends State<Home> {
                 name: "Stellar Snapshots - ${widget.imgDate}",
                 onProgress: (String? fileName, double progress) {
                   setState(() {
-                    _downloadProgressValue = (progress / 100);
+                    _downloadedImageBytes = ((progress / 100) * _totalBytes).toInt();
                   });
                 },
                 onDownloadCompleted: (String? message) {
@@ -257,10 +259,10 @@ class _HomeState extends State<Home> {
             child: !_isFileDownloading ?
               const Icon(Icons.download_outlined) :
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircularProgressIndicator(
-                  value: _downloadProgressValue > 0 ? _downloadProgressValue : null,
-                ),
+                padding: const EdgeInsets.all(5.0),
+                child: _downloadedImageBytes > 0 ? 
+                ImageLoader(cumulativeBytesLoaded: _downloadedImageBytes, expectedTotalBytes: _totalBytes) :
+                const CircularProgressIndicator(),
               ),
           ),
           FloatingActionButton.small(
