@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nasa_apod/home/image_loader.dart';
+import 'package:nasa_apod/widgets/image_loader.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:url_launcher/url_launcher.dart';
