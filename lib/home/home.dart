@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
   bool _isFileDownloading = false;
   
   int _downloadedImageBytes = 0;
-  int _totalBytes = 0;
+  int _totalImageExpectedBytes = 0;
 
   @override
   void initState() {
@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
       name: "$_appName - ${widget.imgDate}",
       onProgress: (String? fileName, double progress) {
         setState(() {
-          _downloadedImageBytes = ((progress / 100) * _totalBytes).toInt();
+          _downloadedImageBytes = ((progress / 100) * _totalImageExpectedBytes).toInt();
         });
       },
       onDownloadCompleted: (String? message) {
@@ -166,7 +166,7 @@ class _HomeState extends State<Home> {
                 );
               }
               else {
-                _totalBytes = event.expectedTotalBytes ?? 1;
+                _totalImageExpectedBytes = event.expectedTotalBytes ?? 1;
                 return ImageLoader(
                   cumulativeBytesLoaded: event.cumulativeBytesLoaded,
                   expectedTotalBytes: event.expectedTotalBytes ?? 1,
@@ -278,8 +278,13 @@ class _HomeState extends State<Home> {
               const Icon(Icons.download_outlined) :
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: _downloadedImageBytes > 0 ? 
-                ImageLoader(cumulativeBytesLoaded: _downloadedImageBytes, expectedTotalBytes: _totalBytes) :
+                child: _downloadedImageBytes > 0 ?
+                // show ImageLoader() if _downloadedImageBytes > 0
+                ImageLoader(
+                  cumulativeBytesLoaded: _downloadedImageBytes,
+                  expectedTotalBytes: _totalImageExpectedBytes
+                ) :
+                // show CircularProgressIndicator() if _downloadedImageBytes <= 0
                 const CircularProgressIndicator(),
               ),
           ),
