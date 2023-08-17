@@ -49,22 +49,19 @@ class _HomeState extends State<Home> {
     _getPackageInfo();
   }
 
-  Future<void> _setImageCacheStatus(bool status) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isImageCached', !_isImageCached!);
-    _setImageUrl();
-  }
-
   Future<void> _checkImageCacheStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if(prefs.getString('imgUrl') == widget.imgLink) {
       setState(() {
-        _isImageCached = prefs.getBool('isImageCached');
+        _isImageCached = true;
       });
     }
     else {
-      _setImageCacheStatus(false);
+      setState(() {
+        _isImageCached = false;
+      });
+      _setImageUrl();
     }
   }
 
@@ -202,8 +199,6 @@ class _HomeState extends State<Home> {
                     );
                   },
                   imageBuilder: (context, imageProvider) {
-                    _setImageCacheStatus(true);
-
                     return PhotoView(
                       backgroundDecoration: const BoxDecoration(
                         color: Colors.blue,
