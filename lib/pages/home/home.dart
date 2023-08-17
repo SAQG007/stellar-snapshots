@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
@@ -7,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nasa_apod/widgets/image_loader.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
@@ -28,7 +30,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   // my mail address
   final String _mailAddress = "syedabdulqadirgillani807@gmail.com";
 
@@ -40,6 +41,7 @@ class _HomeState extends State<Home> {
   bool _showFullDescription = false;
   bool _showText = true;
   bool _isFileDownloading = false;
+  bool? _isImageCached = false;
   
   int _downloadedImageBytes = 0;
   int _totalImageExpectedBytes = 0;
@@ -47,7 +49,27 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _getImageCacheStatus();
     _getPackageInfo();
+  }
+
+  Future<void> _setImageCacheStatus(bool status) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isImageCached', status);
+    await prefs.setString('imgUrl', widget.imgLink);
+  }
+
+  Future<void> _getImageCacheStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getString('imgUrl') == widget.imgLink) {
+      setState(() {
+        _isImageCached = prefs.getBool('isImageCached');
+      });
+    }
+    else {
+      _setImageCacheStatus(false);
+    }
   }
 
   Future<void> _getPackageInfo() async {
@@ -155,24 +177,57 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Stack(
         children: [
-          PhotoView(
-            imageProvider: NetworkImage(widget.imgLink),
-            minScale: PhotoViewComputedScale.contained * 1,
-            maxScale: PhotoViewComputedScale.covered * 1,
-            loadingBuilder: (context, event) {
-              if (event == null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              else {
-                _totalImageExpectedBytes = event.expectedTotalBytes ?? 1;
-                return ImageLoader(
-                  cumulativeBytesLoaded: event.cumulativeBytesLoaded,
-                  expectedTotalBytes: event.expectedTotalBytes ?? 1,
-                );
-              }
-            },
+          Visibility(
+            visible: _isImageCached!,
+            child: PhotoView(
+              backgroundDecoration: const BoxDecoration(
+                color: Colors.red,
+              ),
+              imageProvider: CachedNetworkImageProvider(widget.imgLink),
+              minScale: PhotoViewComputedScale.contained * 1,
+              maxScale: PhotoViewComputedScale.covered * 1,
+              loadingBuilder: (context, event) {
+                if (event == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                else {
+                  _totalImageExpectedBytes = event.expectedTotalBytes ?? 1;
+                  return ImageLoader(
+                    cumulativeBytesLoaded: event.cumulativeBytesLoaded,
+                    expectedTotalBytes: event.expectedTotalBytes ?? 1,
+                  );
+                }
+              },
+            ),
+          ),
+          Visibility(
+            visible: !_isImageCached!,
+            child: Center(
+              child: CachedNetworkImage(
+                  imageUrl: widget.imgLink,
+                  filterQuality: FilterQuality.high,
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  progressIndicatorBuilder: (context, url, downloadProgress) {
+                    return CircularProgressIndicator(
+                      value: downloadProgress.progress,
+                    );
+                  },
+                  imageBuilder: (context, imageProvider) {
+                    _setImageCacheStatus(true);
+
+                    return PhotoView(
+                      backgroundDecoration: const BoxDecoration(
+                        color: Colors.blue,
+                      ),
+                      imageProvider: imageProvider,
+                      minScale: PhotoViewComputedScale.contained * 1,
+                      maxScale: PhotoViewComputedScale.covered * 1,
+                  );
+                }
+              ),
+            ),
           ),
           Visibility(
             visible: _showText,
