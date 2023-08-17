@@ -103,7 +103,9 @@ class _HomeState extends State<Home> {
   }
 
   void _downloadFile() {
-    _isFileDownloading = true;
+    setState(() {
+      _isFileDownloading = true;
+    });
     
     FileDownloader.downloadFile(
       url: widget.imgLink,
