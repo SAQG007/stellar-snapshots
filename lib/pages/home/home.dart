@@ -52,6 +52,7 @@ class _HomeState extends State<Home> {
   Future<void> _checkImageCacheStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    // if the imgUrl in shared preferences is equal to incoming imgLink then the image is cached
     if(prefs.getString('imgUrl') == widget.imgLink) {
       setState(() {
         _isImageCached = true;
@@ -70,6 +71,7 @@ class _HomeState extends State<Home> {
     await prefs.setString('imgUrl', widget.imgLink);
   }
 
+  // get package info for accessing app name
   Future<void> _getPackageInfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     _appName = packageInfo.appName;
@@ -170,6 +172,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Stack(
         children: [
+          // visible if the image is cached
           Visibility(
             visible: _isImageCached!,
             child: PhotoView(
@@ -186,6 +189,7 @@ class _HomeState extends State<Home> {
               },
             ),
           ),
+          // visible if the image is not cached
           Visibility(
             visible: !_isImageCached!,
             child: Center(
@@ -211,6 +215,7 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+          // visible if the user wants to show text i.e., _showText is true
           Visibility(
             visible: _showText,
             child: Padding(
@@ -219,7 +224,7 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.imgTitle,
+                    "${widget.imgTitle} - $_isImageCached",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const Divider(),
