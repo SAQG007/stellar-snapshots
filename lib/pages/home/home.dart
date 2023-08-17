@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nasa_apod/widgets/image_loader.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,9 +41,6 @@ class _HomeState extends State<Home> {
   bool _showText = true;
   bool _isFileDownloading = false;
   bool? _isImageCached = false;
-  
-  int _downloadedImageBytes = 0;
-  int _totalImageExpectedBytes = 0;
 
   @override
   void initState() {
@@ -108,11 +104,6 @@ class _HomeState extends State<Home> {
     FileDownloader.downloadFile(
       url: widget.imgLink,
       name: "$_appName - ${widget.imgDate}",
-      onProgress: (String? fileName, double progress) {
-        setState(() {
-          _downloadedImageBytes = ((progress / 100) * _totalImageExpectedBytes).toInt();
-        });
-      },
       onDownloadCompleted: (String? message) {
         Fluttertoast.showToast(
           msg: "Download Complete",
@@ -187,18 +178,9 @@ class _HomeState extends State<Home> {
               minScale: PhotoViewComputedScale.contained * 1,
               maxScale: PhotoViewComputedScale.covered * 1,
               loadingBuilder: (context, event) {
-                if (event == null) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                else {
-                  _totalImageExpectedBytes = event.expectedTotalBytes ?? 1;
-                  return ImageLoader(
-                    cumulativeBytesLoaded: event.cumulativeBytesLoaded,
-                    expectedTotalBytes: event.expectedTotalBytes ?? 1,
-                  );
-                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               },
             ),
           ),
@@ -340,16 +322,9 @@ class _HomeState extends State<Home> {
             },
             child: !_isFileDownloading ?
               const Icon(Icons.download_outlined) :
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: _downloadedImageBytes > 0 ?
-                // show ImageLoader() if _downloadedImageBytes > 0
-                ImageLoader(
-                  cumulativeBytesLoaded: _downloadedImageBytes,
-                  expectedTotalBytes: _totalImageExpectedBytes
-                ) :
-                // show CircularProgressIndicator() if _downloadedImageBytes <= 0
-                const CircularProgressIndicator(),
+              const Padding(
+                padding: EdgeInsets.all(5.0),
+                child: CircularProgressIndicator(),
               ),
           ),
           FloatingActionButton.small(
