@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
           fontSize: 16.0,
-          backgroundColor: Colors.grey,
+          backgroundColor: Theme.of(context).colorScheme.onSurface,
         );
         setState(() {
           _isFileDownloading = false;
@@ -280,7 +280,7 @@ class _HomeState extends State<Home> {
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 1,
                 fontSize: 16.0,
-                backgroundColor: Colors.grey,
+                backgroundColor: Theme.of(context).colorScheme.onSurface,
               );
             },
             child: !_isFileDownloading ?

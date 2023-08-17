@@ -5,6 +5,7 @@ ThemeData myTheme = ThemeData(
   brightness: Brightness.dark,
   colorScheme: const ColorScheme.dark(
     primary: Color(0xff0B2447),
+    onSurface: Color.fromARGB(255, 66, 66, 66),
   ),
   textTheme: const TextTheme(
     bodySmall: TextStyle(
