@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:nasa_apod/home/home.dart';
+import 'package:nasa_apod/pages/home/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({ Key? key }) : super(key: key);

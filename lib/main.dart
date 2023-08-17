@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_apod/splash_screen.dart';
+import 'package:nasa_apod/pages/splash_screen.dart';
 import 'theme/theme.dart';
 
 void main() {
