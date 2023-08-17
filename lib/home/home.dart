@@ -272,7 +272,16 @@ class _HomeState extends State<Home> {
           ),
           FloatingActionButton.small(
             onPressed: () {
-              _downloadFile();
+              !_isFileDownloading ?
+              _downloadFile() :
+              Fluttertoast.showToast(
+                msg: "Download in progress",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                fontSize: 16.0,
+                backgroundColor: Colors.grey,
+              );
             },
             child: !_isFileDownloading ?
               const Icon(Icons.download_outlined) :
