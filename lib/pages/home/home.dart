@@ -330,8 +330,10 @@ class _HomeState extends State<Home> {
             child: !_isFileDownloading ?
               const Icon(Icons.download_outlined) :
               const Padding(
-                padding: EdgeInsets.all(5.0),
-                child: CircularProgressIndicator(),
+                padding: EdgeInsets.all(10.0),
+                child: CircularProgressIndicator(
+                  strokeWidth: 3.0,
+                ),
               ),
           ),
           FloatingActionButton.small(
