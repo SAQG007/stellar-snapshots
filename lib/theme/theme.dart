@@ -67,4 +67,10 @@ ThemeData myTheme = ThemeData(
   progressIndicatorTheme: const ProgressIndicatorThemeData(
     color: Colors.white70,
   ),
+  elevatedButtonTheme: const ElevatedButtonThemeData(
+    style: ButtonStyle(
+      backgroundColor: MaterialStatePropertyAll(Color(0xff0B2447)),
+      foregroundColor: MaterialStatePropertyAll(Colors.white54),
+    ),
+  ),
 );

@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:nasa_apod/pages/home/home.dart';
+import 'package:nasa_apod/pages/illustrations/no_internet.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({ Key? key }) : super(key: key);
@@ -45,6 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
           fontSize: 16.0,
           backgroundColor: Theme.of(context).colorScheme.onSurface,
       );
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NoInternet()));
     }
     else if(connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
       _getApodData();
