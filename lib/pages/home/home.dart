@@ -45,17 +45,17 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _getImageCacheStatus();
+    _checkImageCacheStatus();
     _getPackageInfo();
   }
 
   Future<void> _setImageCacheStatus(bool status) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isImageCached', status);
-    await prefs.setString('imgUrl', widget.imgLink);
+    await prefs.setBool('isImageCached', !_isImageCached!);
+    _setImageUrl();
   }
 
-  Future<void> _getImageCacheStatus() async {
+  Future<void> _checkImageCacheStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if(prefs.getString('imgUrl') == widget.imgLink) {
@@ -66,6 +66,11 @@ class _HomeState extends State<Home> {
     else {
       _setImageCacheStatus(false);
     }
+  }
+
+  Future<void> _setImageUrl() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('imgUrl', widget.imgLink);
   }
 
   Future<void> _getPackageInfo() async {
