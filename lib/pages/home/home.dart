@@ -178,9 +178,6 @@ class _HomeState extends State<Home> {
           Visibility(
             visible: _isImageCached!,
             child: PhotoView(
-              backgroundDecoration: const BoxDecoration(
-                color: Colors.red,
-              ),
               imageProvider: CachedNetworkImageProvider(widget.imgLink),
               minScale: PhotoViewComputedScale.contained * 1,
               maxScale: PhotoViewComputedScale.covered * 1,
@@ -206,9 +203,6 @@ class _HomeState extends State<Home> {
                   },
                   imageBuilder: (context, imageProvider) {
                     return PhotoView(
-                      backgroundDecoration: const BoxDecoration(
-                        color: Colors.blue,
-                      ),
                       imageProvider: imageProvider,
                       minScale: PhotoViewComputedScale.contained * 1,
                       maxScale: PhotoViewComputedScale.covered * 1,
@@ -226,7 +220,7 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${widget.imgTitle} - $_isImageCached",
+                    widget.imgTitle,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const Divider(),
