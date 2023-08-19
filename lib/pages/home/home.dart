@@ -348,7 +348,7 @@ class _HomeState extends State<Home> {
           // LinkedIn FAB
           FloatingActionButton.small(
             onPressed: _openLinkedProfile,
-            backgroundColor: const Color.fromRGBO(0, 120, 212, 10),
+            backgroundColor: const Color(0xff0078d4),
             child: Image.asset(
               'assets/icons/linkedin.png',
             ),
