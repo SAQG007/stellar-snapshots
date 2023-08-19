@@ -1,6 +1,6 @@
 # Stellar Snapshots
 
-A flutter application that is powered by Nasa APOD (Astronomy Picture of the Day) API.
+A flutter application that is powered by Nasa's APOD (Astronomy Picture of the Day) API.
 
 ## Resources
 
