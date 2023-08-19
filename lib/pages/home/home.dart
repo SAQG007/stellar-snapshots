@@ -7,6 +7,7 @@ import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -100,6 +101,10 @@ class _HomeState extends State<Home> {
         ),
       );
     }
+  }
+
+  void _shareImageDetails() async {
+    await Share.share("Title: ${widget.imgTitle}\nDate: ${widget.imgDate}\n\nImage Link: ${widget.imgLink}\n\n${widget.imgDescription}");
   }
 
   void _downloadFile() {
@@ -252,8 +257,9 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: ExpandableFab(
-        distance: 110,
+        distance: 140,
         children: [
+          // About FAB
           FloatingActionButton.small(
             onPressed: () {
               showDialog(
@@ -300,6 +306,7 @@ class _HomeState extends State<Home> {
             },
             child: const Icon(Icons.info_outline),
           ),
+          // toggle text FAB
           FloatingActionButton.small(
             onPressed: () {
               setState(() {
@@ -308,6 +315,14 @@ class _HomeState extends State<Home> {
             },
             child: Icon(_showText ? Icons.comments_disabled_outlined : Icons.comment_outlined),
           ),
+          // Share FAB
+          FloatingActionButton.small(
+            onPressed: () {
+              _shareImageDetails();
+            },
+            child: const Icon(Icons.share_outlined),
+          ),
+          // Download FAB
           FloatingActionButton.small(
             onPressed: () {
               !_isFileDownloading ?
@@ -330,6 +345,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
           ),
+          // LinkedIn FAB
           FloatingActionButton.small(
             onPressed: _openLinkedProfile,
             backgroundColor: const Color.fromRGBO(0, 120, 212, 10),
