@@ -304,6 +304,7 @@ class _HomeState extends State<Home> {
                 ),
               );
             },
+            tooltip: "About",
             child: const Icon(Icons.info_outline),
           ),
           // toggle text FAB
@@ -313,6 +314,7 @@ class _HomeState extends State<Home> {
                 _showText = !_showText;
               });
             },
+            tooltip: "Show/Hide Text",
             child: Icon(_showText ? Icons.comments_disabled_outlined : Icons.comment_outlined),
           ),
           // Share FAB
@@ -320,6 +322,7 @@ class _HomeState extends State<Home> {
             onPressed: () {
               _shareImageDetails();
             },
+            tooltip: "Share",
             child: const Icon(Icons.share_outlined),
           ),
           // Download FAB
@@ -336,6 +339,7 @@ class _HomeState extends State<Home> {
                 backgroundColor: Theme.of(context).colorScheme.onSurface,
               );
             },
+            tooltip: "Download",
             child: !_isFileDownloading ?
               const Icon(Icons.download_outlined) :
               const Padding(
@@ -349,6 +353,7 @@ class _HomeState extends State<Home> {
           FloatingActionButton.small(
             onPressed: _openLinkedProfile,
             backgroundColor: const Color(0xff0078d4),
+            tooltip: "Open LinkedIn Profile",
             child: Image.asset(
               'assets/icons/linkedin.png',
             ),
