@@ -9,6 +9,7 @@ A flutter application that is powered by Nasa's APOD (Astronomy Picture of the D
 - Image Downloading
 - Image Details
 - Feedback functionality using default mail-box
+- Get a daily dose of awe-inspiring astronomy pictures.
 
 ## Screenshots
 <img src="assets/screenshots/loading.png" alt="loading" width="300" />
